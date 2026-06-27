@@ -1,0 +1,152 @@
+[
+  {
+    "category": "Pure SQL Retrieval",
+    "intent_type": "Relational Analytics",
+    "question": "Group the fraud data by customer_segment and calculate the average transaction_amount for each segment. Sort the results in descending order by the average amount.",
+    "ground_truth": "The system successfully groups the records by the customer_segment column, computes the mathematical average of the transaction_amount for each distinct segment, and returns the sorted relational matrix."
+  },
+  {
+    "category": "Pure SQL Retrieval",
+    "intent_type": "Relational Analytics",
+    "question": "Find the total financial_loss for transactions where vpn_detected is explicitly equal to 1 and the merchant_category is 'retail'.",
+    "ground_truth": "The system applies a dual-conditional filter (vpn_detected = 1 AND merchant_category = 'retail') and calculates the exact sum of the financial_loss column for the matching rows."
+  },
+  {
+    "category": "Pure SQL Retrieval",
+    "intent_type": "Relational Analytics",
+    "question": "Identify the exact transaction_id and transaction_amount with the highest amount_deviation_ratio among foreign transactions where is_foreign equals 1.",
+    "ground_truth": "The system isolates all foreign transactions (is_foreign = 1), orders them by amount_deviation_ratio descending, and extracts the single top transaction_id and its corresponding transaction_amount."
+  },
+  {
+    "category": "Pure SQL Retrieval",
+    "intent_type": "Relational Analytics",
+    "question": "What is the total number of transactions that occurred on a weekend (is_weekend = 1) across all high-risk countries (high_risk_country = 1)?",
+    "ground_truth": "The system executes a count of all transaction rows that satisfy both binary conditions: is_weekend = 1 and high_risk_country = 1."
+  },
+  {
+    "category": "Pure SQL Retrieval",
+    "intent_type": "Relational Analytics",
+    "question": "Calculate the total combined transaction_amount for customers with a credit_score strictly below 600 who have a past_fraud_history equal to 1.",
+    "ground_truth": "The system filters the database for credit_score < 600 AND past_fraud_history = 1, then computes the aggregate sum of the transaction_amount for that subset."
+  },
+  {
+    "category": "Pure Python / Pandas Analytics",
+    "intent_type": "Advanced Math",
+    "question": "Use a Python script inside the sandbox to calculate the exact Pearson correlation coefficient between distance_from_home_km and transaction_amount.",
+    "ground_truth": "The Python sandbox executes a correlation function (e.g., using pandas .corr()) between the distance_from_home_km and transaction_amount series, returning the float correlation coefficient."
+  },
+  {
+    "category": "Pure Python / Pandas Analytics",
+    "intent_type": "Advanced Math",
+    "question": "Compute the precise 95th percentile of the transaction_velocity_24h column for all transactions explicitly flagged as fraudulent (label = 1).",
+    "ground_truth": "The system filters the dataframe where label == 1, applies a quantile(0.95) or percentile calculation to the transaction_velocity_24h column, and returns the threshold value."
+  },
+  {
+    "category": "Pure Python / Pandas Analytics",
+    "intent_type": "Advanced Math",
+    "question": "Calculate the global median and standard deviation of the account_age_days for transactions where tor_detected is equal to 1.",
+    "ground_truth": "The Python worker isolates records where tor_detected == 1 and computes both the median and the standard deviation of the account_age_days distribution."
+  },
+  {
+    "category": "Pure Python / Pandas Analytics",
+    "intent_type": "Advanced Math",
+    "question": "Isolate all transactions with an amount_deviation_ratio strictly greater than 3.0 and compute the mathematical mean of their financial_loss.",
+    "ground_truth": "The Pandas engine filters the dataset for amount_deviation_ratio > 3.0 and calculates the mean of the financial_loss column for those specific extreme deviations."
+  },
+  {
+    "category": "Pure Python / Pandas Analytics",
+    "intent_type": "Advanced Math",
+    "question": "Generate a pivot table or group-by summary showing the mean merchant_risk_score for each combination of device_type and channel.",
+    "ground_truth": "The Python execution outputs a multi-index aggregation or pivot table detailing the average merchant_risk_score across the categorical intersections of device_type and channel."
+  },
+  {
+    "category": "Pure Vector / Semantic Extraction",
+    "intent_type": "Unstructured Document Search",
+    "question": "According to the physics paper, how does the inclusion of DESI DR2 BAO data affect the viability of perturbative modifications to the electron mass m_e(z) as a solution to the Hubble tension?",
+    "ground_truth": "The inclusion of DESI DR2 BAO data reveals that perturbative modifications to m_e(z) cannot fully resolve the Hubble tension because raising H0 by modifying recombination forces a decrease in matter density (Omega_m), which directly conflicts with the precise late-time BAO data."
+  },
+  {
+    "category": "Pure Vector / Semantic Extraction",
+    "intent_type": "Unstructured Document Search",
+    "question": "What specific values for the Hubble constant (H0) are contrasted between the Planck satellite's CMB data and the SH0ES collaboration's local measurements?",
+    "ground_truth": "The paper contrasts the early-Universe CMB inference of H0 = 67.36 ± 0.54 km s−1 Mpc−1 from Planck against the late-time distance indicator measurement of H0 = 73.04 ± 1.04 km s−1 Mpc−1 from the SH0ES collaboration."
+  },
+  {
+    "category": "Pure Vector / Semantic Extraction",
+    "intent_type": "Unstructured Document Search",
+    "question": "Explain the paper's findings regarding the relationship between the matter density parameter (Omega_m) and the S_8 tension when modifying the recombination history.",
+    "ground_truth": "The time-varying electron mass solution acts as a beneficial byproduct by lowering the matter density parameter (Omega_m), which consequently shifts the derived S_8 value to ease the S_8 tension in light of the cosmological data."
+  },
+  {
+    "category": "Pure Vector / Semantic Extraction",
+    "intent_type": "Unstructured Document Search",
+    "question": "What does the function g(z) represent in the context of the paper, and how is its mathematical formula defined?",
+    "ground_truth": "The function g(z) represents the visibility function, which defines the probability distribution of photon decoupling, and is mathematically defined as g(z) = -tau' * e^{-tau}."
+  },
+  {
+    "category": "Pure Vector / Semantic Extraction",
+    "intent_type": "Unstructured Document Search",
+    "question": "Which specific prior constraints on the baryon density (omega_b) are mentioned in the text, and how do they create tension with Big Bang Nucleosynthesis (BBN)?",
+    "ground_truth": "Modifications to the recombination history increase the preferred baryon density parameter (omega_b) to roughly 0.02290 ± 0.00011, which creates a 1.3-sigma tension with standard BBN constraints derived from primordial deuterium abundance."
+  },
+  {
+    "category": "Multi-Hop / Cross-Domain Routing",
+    "intent_type": "Supervisor Testing",
+    "question": "Provide the highest individual transaction amount from the fraud dataset, and separately summarize the authors' conclusions about the ACT-L CMB data from the physics paper.",
+    "ground_truth": "The supervisor routes to SQL to extract the max transaction_amount, and routes to the Vector engine to explain that the ACT-L CMB data solutions share the same qualitative oscillatory structure across parameters as previous Planck data solutions."
+  },
+  {
+    "category": "Multi-Hop / Cross-Domain Routing",
+    "intent_type": "Supervisor Testing",
+    "question": "What is the overall average credit_score of all customers in the dataset, and what is the institutional affiliation of paper author Nanoom Lee?",
+    "ground_truth": "The system uses SQL/Pandas to aggregate the mean credit_score, and uses Vector search to identify that Nanoom Lee is affiliated with the William H. Miller III Department of Physics & Astronomy at Johns Hopkins University."
+  },
+  {
+    "category": "Multi-Hop / Cross-Domain Routing",
+    "intent_type": "Supervisor Testing",
+    "question": "Extract the exact total row count of the fraud dataset, and also explain the numerical methodology used in Appendix A of the cosmology paper to bypass the data covariance matrix.",
+    "ground_truth": "The SQL worker executes a COUNT(*) on the dataset, while the Vector worker retrieves the Appendix A methodology involving computing linear and quadratic responses of chi-squared directly from finite differences at the fiducial cosmology."
+  },
+  {
+    "category": "Multi-Hop / Cross-Domain Routing",
+    "intent_type": "Supervisor Testing",
+    "question": "Find the total transaction volume for the 'electronics' merchant category in the database, and define what the A_s e^{-2tau} degeneracy controls in the physics paper.",
+    "ground_truth": "The system sums the transaction amounts where merchant_category = 'electronics', and retrieves the physics definition showing that the A_s e^{-2tau} degeneracy controls the overall amplitude of the CMB power spectra."
+  },
+  {
+    "category": "Complex Multi-Step / Logic Chain",
+    "intent_type": "Deep Reasoning",
+    "question": "Calculate the exact difference in the average transaction_amount between transactions using a VPN (vpn_detected = 1) and those using TOR (tor_detected = 1).",
+    "ground_truth": "The system computes the mean transaction amount for the VPN cohort, computes the mean for the TOR cohort, and calculates the delta between the two mathematical averages."
+  },
+  {
+    "category": "Complex Multi-Step / Logic Chain",
+    "intent_type": "Deep Reasoning",
+    "question": "Group the fraud dataset by hour of the day to find the hour with the highest total financial_loss, and state the count of fraudulent transactions (label = 1) that occurred during that specific peak hour.",
+    "ground_truth": "The system aggregates financial_loss grouped by the 'hour' column, sorts to identify the hour with the maximum loss, and then performs a secondary count of rows where label = 1 specifically within that identified hour."
+  },
+  {
+    "category": "Complex Multi-Step / Logic Chain",
+    "intent_type": "Deep Reasoning",
+    "question": "Calculate the mathematical variance of distance_from_home_km for transactions explicitly labeled as legit (label = 0) versus fraud (label = 1).",
+    "ground_truth": "The Python or SQL engine computes the statistical variance of the distance_from_home_km column, separated into two distinct cohorts based on the binary label column."
+  },
+  {
+    "category": "Complex Multi-Step / Logic Chain",
+    "intent_type": "Deep Reasoning",
+    "question": "Determine if there is a higher mathematical frequency of transactions with an amount_deviation_ratio strictly greater than 5.0 on mobile devices compared to desktop devices (using the device_type column).",
+    "ground_truth": "The system isolates rows where amount_deviation_ratio > 5.0, groups them by device_type, counts the occurrences for mobile versus desktop, and compares the frequencies."
+  },
+  {
+    "category": "Complex Multi-Step / Logic Chain",
+    "intent_type": "Deep Reasoning",
+    "question": "Find the maximum transaction_velocity_1h for any customer with an account_age_days strictly less than 30 and a credit_score strictly above 750.",
+    "ground_truth": "The system filters the dataset using dual conditions (account_age_days < 30 AND credit_score > 750) and extracts the max() value from the transaction_velocity_1h column."
+  },
+  {
+    "category": "Complex Multi-Step / Logic Chain",
+    "intent_type": "Deep Reasoning",
+    "question": "Compute the average distance_from_home_km for transactions where the merchant_risk_score is above 0.8, and compare it to the average distance for transactions where the risk score is below 0.2.",
+    "ground_truth": "The engine processes two separate filtered aggregations on distance_from_home_km based on the merchant_risk_score thresholds (>0.8 and <0.2) and outputs the two averages for comparison."
+  }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "intent_pattern": "Find outliers anomalies standard deviation z-score isolation forest",
+        "golden_instruction": "To isolate high-risk anomalies natively via a sandbox or SQL: First compute the population statistics using standard aggregates. For advanced multivariate outliers, use an IsolationForest with a contamination hyperparameter of 0.05. Always map features to transaction_amount and merchant_risk_score. Return a clean visualization using Plotly showing the decision boundaries."
+    },
+    {
+        "intent_pattern": "Calculate average value aggregates across database tables natively",
+        "golden_instruction": "When executing native relational mathematical aggregation on the fraud table, always explicitly target the transaction_amount column. Wrap the query in standard SQLite AVG() functionality and explicitly group by merchant_id to catch high-velocity spikes."
+    }
+]

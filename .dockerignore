@@ -1,0 +1,26 @@
+# --- SYSTEM & VERSION CONTROL ---
+.git
+.gitmodules
+.gitignore
+
+# --- LOCAL DEVELOPMENT & ENVIRONMENTS ---
+venv
+.venv
+node_modules
+.next
+.DS_Store
+__pycache__
+*.pyc
+*.pyo
+
+# --- SENSITIVE SECRETS ---
+.env
+.env.local
+
+# --- HEAVY DATA & LOGS ---
+# Exclude these so Docker doesn't choke on file size during the build
+Storage/
+vector_indices/
+*.db
+*.log
+*.sqlite3

@@ -1,0 +1,11 @@
+# .gitignore
+.env
+pgdata/
+qdrant_data/
+storage/
+__pycache__/
+*.pyc
+.next/
+node_modules/
+.DS_Store
+.ipynb_checkpoints/

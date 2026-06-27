@@ -1,0 +1,36 @@
+version: "1.0"
+database_name: "Enterprise_ERP_Large"
+db_path: "./enterprise_data_large/enterprise_erp_large.db"
+
+tables:
+  projects:
+    name: "projects"
+    description: "Contains project metadata and organizational ownership."
+    columns:
+      id: "Primary key (Format: PRJ-1000)."
+      name: "The catch-phrase name of the project."
+      lead: "The person managing the project."
+      dept: 
+        description: "Department code (Physical Column)."
+        # THE MAPPING BRIDGE:
+        business_logic:
+          "Sales": "MKT"
+          "Marketing": "MKT"
+          "Finance": "FIN"
+          "Operations": "OPS"
+          "IT": "IT"
+          "HR": "HR"
+          "R&D": "R&D"
+        valid_values: ["IT", "HR", "FIN", "OPS", "MKT", "R&D"]
+
+  financials:
+    name: "financials"
+    description: "Financial tracking table."
+    columns:
+      p_id: "Links to projects.id."
+      budget: "Allocated budget (Numeric)."
+      spend: "Actual spend (Numeric)."
+
+semantic_layer:
+  relationships:
+    projects_to_financials: "projects.id = financials.p_id"

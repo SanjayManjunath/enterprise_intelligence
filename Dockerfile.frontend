@@ -1,0 +1,28 @@
+# Stage 1: Build Environment (Upgraded to Node 20 LTS)
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend/ ./
+RUN npm run build
+
+# Stage 2: Production Micro-Server (Upgraded to Node 20 LTS)
+FROM node:20-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+# 1. Copy the pruned standalone micro-server
+COPY --from=builder /app/.next/standalone ./
+
+# 2. Copy static assets (Standalone does NOT bundle these automatically!)
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/static ./.next/static
+
+EXPOSE 3000
+
+# 3. Boot the micro-server natively
+CMD ["node", "server.js"]

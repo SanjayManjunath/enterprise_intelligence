@@ -1,0 +1,83 @@
+services:
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: enterprise_postgres
+    environment:
+      POSTGRES_USER: enterprise_user
+      POSTGRES_PASSWORD: enterprise_password
+      POSTGRES_DB: langgraph_state
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # --- NEW: OPEN SOURCE VECTOR DB ---
+  qdrant-db:
+    image: qdrant/qdrant:latest
+    container_name: enterprise_qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - ./qdrant_data:/qdrant/storage
+    restart: unless-stopped
+
+  
+  redis-broker:
+    image: redis:7-alpine
+    container_name: enterprise_redis
+    restart: unless-stopped
+    # Left completely invisible to the public web, exposed ONLY to the Python Docker bridge
+    expose:
+      - "6379"
+
+  # --- EXISTING BACKEND SERVICE ---
+  enterprise-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: enterprise_ai_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./Storage:/storage
+      - ./backend:/backend
+      - ./catalog.yaml:/backend/catalog.yaml
+    env_file:
+      - ./.env
+    depends_on:
+      - postgres-db # <-- Forces the API to wait for the database
+      - redis-broker
+    restart: unless-stopped
+
+  # --- NEW ASYNCHRONOUS CELERY ML WORKER ---
+  celery-ml-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: enterprise_celery_worker
+    command: celery -A celery_app worker --loglevel=info
+    volumes:
+      - ./Storage:/storage
+      - ./backend:/backend
+      - ./catalog.yaml:/backend/catalog.yaml
+    env_file:
+      - ./.env
+    depends_on:
+      - postgres-db
+      - redis-broker
+    restart: unless-stopped
+
+  # --- EXISTING FRONTEND SERVICE ---
+  enterprise-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: enterprise_ai_frontend
+    ports:
+      - "8080:3000"
+    env_file:
+      - ./.env
+    depends_on:
+      - enterprise-backend
+    restart: unless-stopped

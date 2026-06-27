@@ -1,0 +1,63 @@
+# --- CORE API & SERVER ---
+fastapi==0.136.1
+uvicorn==0.46.0
+gunicorn==21.2.0
+pydantic==2.13.3
+python-dotenv==1.2.2
+python-multipart==0.0.26
+starlette==1.0.0
+
+# --- DATABASE & PERSISTENCE ---
+psycopg[binary]
+psycopg-pool
+langgraph-checkpoint-postgres
+
+# --- DATA SCIENCE & PANDAS SANDBOX ---
+pandas==2.1.4
+numpy==1.26.4
+scikit-learn==1.7.2
+scipy==1.15.3
+matplotlib
+seaborn
+openpyxl
+
+# --- AI, LLM & ROUTING ---
+langchain==1.2.15
+langchain-core==1.3.2
+langchain-groq==1.1.2
+langchain-openai==1.2.1
+langchain-google-genai
+langchain-text-splitters
+langgraph==1.1.9
+groq==0.37.1
+openai==2.32.0
+
+# --- MULTI-MODAL & VISION PARSING ---
+llama-parse
+openai-whisper
+odfpy
+
+# --- EVALUATION & TRACING ---
+ragas==0.4.3
+datasets==4.8.5
+langsmith==0.7.36
+
+# --- VECTOR DATABASE & SEARCH ---
+pinecone==9.0.1
+pinecone-text
+chromadb==1.5.8
+sentence-transformers==5.4.1
+tiktoken==0.12.0
+
+# --- NETWORK & UTILS ---
+httpx==0.28.1
+requests==2.33.1
+aiohttp==3.13.5
+PyYAML
+
+
+optimum[onnxruntime]==1.17.1
+onnxruntime==1.17.1
+redis==5.0.3
+celery==5.3.6
+qdrant-client==1.8.0

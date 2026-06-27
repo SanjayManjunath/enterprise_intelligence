@@ -1,0 +1,33 @@
+FROM python:3.11-slim
+
+# MUST be absolute with the leading slash
+WORKDIR /backend
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first to leverage Docker layer caching
+COPY backend/requirements.txt .
+
+RUN pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu \
+    torch \
+    torchvision \
+    && pip install --no-cache-dir -r requirements.txt
+
+# Copy the backend code
+COPY backend/ .
+
+# Copy the catalog directly into the image as a fallback for production
+COPY catalog.yaml .
+
+EXPOSE 8000
+
+# Boot via Gunicorn Process Manager
+# -w 2: Two concurrent Uvicorn workers (keeps model RAM footprint safely capped)
+# -k: ASGI worker class specification 
+# --timeout 300: 5-minute window to protect deep Cross-Encoder reranking and LLM calls
+CMD ["gunicorn", "main:app", "-w", "2", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000", "--timeout", "300"]
